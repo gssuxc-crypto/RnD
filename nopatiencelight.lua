@@ -106,8 +106,11 @@ local function setupMonster(monster)
 	local char = player.Character or player.CharacterAdded:Wait()
 	local myHRP = char:WaitForChild("HumanoidRootPart")
 
-	local att0 = Instance.new("Attachment", myHRP)
-	local att1 = Instance.new("Attachment", monster)
+	local att0 = Instance.new("Attachment")
+	att0.Parent = myHRP
+
+	local att1 = Instance.new("Attachment")
+	att1.Parent = monster
 
 	local beam = Instance.new("Beam")
 	beam.Attachment0 = att0
@@ -117,6 +120,15 @@ local function setupMonster(monster)
 	beam.Color = ColorSequence.new(Color3.fromRGB(255, 0, 0))
 	beam.FaceCamera = true
 	beam.Parent = myHRP
+
+	-- 🔥 ВАЖНО: очистка при удалении монстра
+	monster.AncestryChanged:Connect(function(_, parent)
+		if not parent then
+			if beam then beam:Destroy() end
+			if att0 then att0:Destroy() end
+			-- att1 удалится сам вместе с монстром
+		end
+	end)
 
 	monsters[monster] = text
 end
