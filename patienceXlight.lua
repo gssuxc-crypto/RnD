@@ -1,3 +1,6 @@
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/gssuxc-crypto/tp2/refs/heads/main/RndDoorTp2.lua'))()
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
